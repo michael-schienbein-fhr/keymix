@@ -1,0 +1,97 @@
+{% macro render_input_field(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">{{ field(class_="input my-2") }}</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_input_field_slider(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">{{ field(class_="input my-2") }}</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_tempo(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		{{ field(class_="input my-2", step="5",min="0",max="300") }}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_zero_to_one_attr(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		{{ field(class_="input my-2", step="0.05",min="0",max="1")}}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_popularity(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		{{ field(class_="input my-2", step="1",min="0",max="100") }}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_loudness(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		{{ field(class_="input my-2", step="1",min="-60",max="0") }}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_duration(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		{{ field(class_="input my-2", step="60000",min="60000",max="600000") }}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_radio_field(field) %}
+<div class="field">
+	<div class="control">
+		{% for subfield in field %} {{ subfield.label(class_="radio is-small") }} {{
+		subfield(class_="radio my-2") }} {% endfor %}
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %}{% macro render_textarea_field(field) %}
+<div class="field">
+	<p class="control">
+		{{ field.label(class_="label is-small") }} {{ field(class_="input my-2
+		is-clipped",style="height: 100px;",placeholder="Add Description...") }}
+	</p>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %} {% macro render_select_field(field) %}
+<div class="field">
+	{{ field.label(class_="label is-small") }}
+	<div class="control">
+		<div class="select my-2">{{ field()}}</div>
+	</div>
+	{% for err in field.errors %}
+	<p class="help is-danger">{{ err }}</p>
+	{% endfor %}
+</div>
+{% endmacro %}

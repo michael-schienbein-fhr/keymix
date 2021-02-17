@@ -1,0 +1,61 @@
+{% import "_formhelpers.html" as helper%}{% extends 'base.html' %} {% block
+title %}Search{% endblock%}{% block content%}
+<section>
+	<div class="container mt-5">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>What is this app</p>
+					</div>
+					<div class="message-body">
+						<form action="subsearch" method="GET" id="subsearch">
+							{{ subform.hidden_tag() }}
+							{{helper.render_input_field(subform.subsearch_input)}}
+							{{helper.render_radio_field(subform.subsearch_radio)}}
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary" id="subsearch_button">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</article>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>Dark</p>
+					</div>
+					<div class="message-body">
+						<form method="POST" action="/seed">
+							<p id="subsearch_results"></p>
+							{{ form.hidden_tag() }} {{ helper.render_select_field(form.genre)}}{{
+							helper.render_select_field(form.key)}} {{
+							helper.render_select_field(form.mode)}}
+							{{helper.render_tempo(form.tempo)}}
+							{{helper.render_zero_to_one_attr(form.danceability)}}
+							{{helper.render_zero_to_one_attr(form.energy)}}
+							{{helper.render_zero_to_one_attr(form.speechiness)}}
+							{{helper.render_zero_to_one_attr(form.acousticness)}}
+							{{helper.render_zero_to_one_attr(form.instrumentalness)}}
+							{{helper.render_zero_to_one_attr(form.liveness)}}
+							{{helper.render_zero_to_one_attr(form.valence)}}
+							{{helper.render_popularity(form.popularity)}}
+							{{helper.render_loudness(form.loudness)}}
+							{{helper.render_duration(form.duration_ms)}}
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary">Search</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

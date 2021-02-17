@@ -1,0 +1,41 @@
+{% from "_formhelpers.html" import render_textarea_field, render_input_field
+%}{% extends 'base.html' %} {% block title %}Save{% endblock%}{% block content%}
+<section>
+	<div class="container mt-5">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>What is this app</p>
+					</div>
+					<div class="message-body">
+						1.HOW TO USE THIS THIS
+						<br />
+						2.HOW TO USE THIS THIS
+					</div>
+				</article>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>save this playlist to your account?</p>
+					</div>
+					<div class="message-body">
+						<form method="POST" action="/save">
+							{{ form.hidden_tag() }} {{ render_input_field(form.name)}} {{
+							render_textarea_field(form.description)}}
+							<div class="control">
+								<div class="field">
+									<button class="button is-primary">Save Playlist</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Playlists{% endblock%} {% block
+content%}
+<section>
+	<div class="container mt-5">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>What is this APP</p>
+					</div>
+					<div class="message-body">
+						1.HOW TO USE THIS THIS
+						<br />
+						2.HOW TO USE THIS THIS
+					</div>
+				</article>
+			</div>
+		</div>
+
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>Dark</p>
+					</div>
+					<div class="message-body">
+						{% for pl in playlists %}
+						<a class="button is-primary" href="/playlists/{{pl.id}}/tracks">
+							<span class="icon">
+								<i class="fab fa-spotify"></i>
+							</span>
+							<span>{{pl.name}}</span>
+						</a>
+						{% endfor %}
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
