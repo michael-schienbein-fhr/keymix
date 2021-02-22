@@ -117,13 +117,13 @@ class MainTestCase(TestCase):
             self.assertIn(
                 '<a class="navbar-item is-pulled-left has-text-success">Welcome! Account created successfully!</a>', html)
 
-    # def test_get_spotify_auth(self):
-    #     """Tests for app level login on server side."""
-    #     with app.test_client() as client:
-    #         resp = client.get('/auth')
-    #         self.assertIn('token', session)
-    #         self.assertEqual(resp.status_code, 302)
-    #         session.clear()
+    def test_get_spotify_auth(self):
+        """Tests for app level login on server side."""
+        with app.test_client() as client:
+            resp = client.get('/auth')
+            self.assertIn('token', session)
+            self.assertEqual(resp.status_code, 302)
+            session.clear()
 
     def test_seed_parameters(self):
         """Tests seeding based on several seeds including artist, track, genre, and more."""

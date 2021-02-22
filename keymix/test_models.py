@@ -12,14 +12,14 @@ db.create_all()
 
 
 class UserModelTestCase(TestCase):
-    """Tests for model for Users class."""
+    """Tests for model for User class."""
 
     def setUp(self):
         """Clean up any existing users."""
+        PlaylistSong.query.delete()
         Song.query.delete()
         Detail.query.delete()
         Playlist.query.delete()
-        PlaylistSong.query.delete()
         User.query.delete()
 
     def tearDown(self):
@@ -29,75 +29,122 @@ class UserModelTestCase(TestCase):
 
     def test_create_user(self):
         u = User.register(username="test1", password="test1",
-                          first_name="tester", last_name='testerson', email="test@test.com")
+                          email="test@test.com")
         db.session.add(u)
         db.session.commit()
 
         self.assertEqual(u.username, "test1")
-        self.assertEqual(u.full_name, "tester testerson")
-
-    def test_edit_user(self):
-        u = User.register(username="test1", password="test1",
-                          first_name="tester", last_name='testerson', email="test@test.com")
-        db.session.add(u)
-        db.session.commit()
-        u.is_admin = True
-        db.session.commit()
-
-        self.assertEqual(u.username, "test1")
-        self.assertEqual(u.full_name, "tester testerson")
-        self.assertTrue(u.is_admin)
 
     def test_authenticate(self):
         r = User.register(username="test1", password="test1",
-                          first_name="tester", last_name='testerson', email="test@test.com")
+                          email="test@test.com")
         db.session.add(r)
         db.session.commit()
         u = User.authenticate(username="test1", password="test1")
 
         self.assertEqual(r.username, "test1")
-        self.assertEqual(r.full_name, "tester testerson")
         self.assertEqual(u.username, "test1")
-        self.assertEqual(u.full_name, "tester testerson")
 
 
-class FeedbackModelTestCase(TestCase):
-    """Tests for model for feedback class."""
+class SongModelTestCase(TestCase):
+    """Tests for model for song class."""
 
     def setUp(self):
-        """Clean up any existing feedback."""
-
-        Feedback.query.delete()
+        """Clean up any existing users."""
+        PlaylistSong.query.delete()
+        Song.query.delete()
+        Detail.query.delete()
+        Playlist.query.delete()
         User.query.delete()
-        r = User.register(username="test1", password="test1",
-                          first_name="tester", last_name='testerson', email="test@test.com")
-        db.session.add(r)
-        db.session.commit()
 
     def tearDown(self):
         """Clean up any fouled transaction."""
 
         db.session.rollback()
 
-    def test_create_feedback(self):
-        f = Feedback(title='Test Feedback',
-                     content='Here is some test text', username='test1')
+    def test_create_song(self):
+        s = Song(title='Test Song', artist='Testerson',
+                 track_id="testid1235432")
 
-        db.session.add(f)
+        db.session.add(s)
         db.session.commit()
 
-        self.assertEqual(f.title, 'Test Feedback')
-        self.assertEqual(f.content, 'Here is some test text')
+        self.assertEqual(s.title, 'Test Song')
+        self.assertEqual(s.artist, 'Testerson')
+        self.assertEqual(s.track_id, 'testid1235432')
 
-    def test_edit_feedback(self):
-        f = Feedback(title='Test Feedback',
-                     content='Here is some test text', username='test1')
 
-        db.session.add(f)
+class PlaylistModelTestCase(TestCase):
+    """Tests for model for Playlist class."""
+
+    def setUp(self):
+        """Clean up any existing users."""
+        PlaylistSong.query.delete()
+        Song.query.delete()
+        Detail.query.delete()
+        Playlist.query.delete()
+        User.query.delete()
+
+    def tearDown(self):
+        """Clean up any fouled transaction."""
+
+        db.session.rollback()
+
+    def test_create_playlist(self):
+        u = User.register(username="test1", password="test1",
+                          email="test@test.com")
+        db.session.add(u)
         db.session.commit()
 
-        f.title = "Edited Feedback"
-        f.content = "Here is some edit text"
+        p = Playlist(name='Test Playlist', description="Testing",
+                     username=u.username)
 
-        self.assertEqual(f.title, 'Edited Feedback')
-        self.assertEqual(f.content, 'Here is some edit text')
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.name, 'Test Playlist')
+        self.assertEqual(p.description, 'Testing')
+        self.assertEqual(p.username, 'test1')
+
+class PlaylistSongModelTestCase(TestCase):
+    """Tests for model for PlaylistSong class."""
+
+    def setUp(self):
+        """Clean up any existing users."""
+        PlaylistSong.query.delete()
+        Playlist.query.delete()
+        Song.query.delete()
+        User.query.delete()
+        Detail.query.delete()
+
+    def tearDown(self):
+        """Clean up any fouled transaction."""
+
+        db.session.rollback()
+
+    def test_playlist_song(self):
+        u = User(username="test1", password="test1",
+                          email="test@test.com")
+        db.session.add(u)
+        db.session.commit()
+
+        s = Song(title='Test Song', artist='Testerson',
+                 track_id="testid1235432")
+        
+        db.session.add(s)
+        db.session.commit()
+
+
+        p = Playlist(name='Test Playlist', description="Testing",
+                     username=u.username)
+
+        db.session.add(p)
+        db.session.commit()
+        
+        ps = PlaylistSong(song_id=s.id,playlist_id=p.id)
+
+        db.session.add(ps)
+        db.session.commit()
+
+        self.assertEqual(ps.song_id, s.id)
+        self.assertEqual(ps.playlist_id, p.id)
