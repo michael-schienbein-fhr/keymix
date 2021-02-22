@@ -2,32 +2,20 @@
 %}{% block title %}Results{% endblock%}{% block content%}
 <section>
 	<div class="container mt-5">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>What is this app</p>
+						<p>Playlist Results</p>
 					</div>
 					<div class="message-body">
-						1.HOW TO USE THIS THIS
-						<br />
-						2.HOW TO USE THIS THIS
-					</div>
-				</article>
-			</div>
-		</div>
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
-				<article class="message is-dark">
-					<div class="message-header">
-						<p>Dark</p>
-					</div>
-					<div class="message-body">
-						<p>save this playlist to your account?</p>
-						<form method="POST" action="/save">
-							<button>sumbit</button>
-						</form>
-						<br />
+						<div class="mb-5">
+						<a class="button is-primary" href="/save" method="POST">
+							<span class="icon">
+								<i class="fas fa-music"></i>
+							</span>
+							<span>Save Playlist to Keymix</span>
+						</a>
 						{% if session['user_id'] %}
 						<a class="button is-primary" href="/save/spotify" method="GET">
 							<span class="icon">
@@ -35,7 +23,18 @@
 							</span>
 							<span>Create Spotify Playlist</span>
 						</a>
-						{% endif %} {% for track in track_id_list %}
+						{% else %}
+						<a
+						class="button is-primary"
+						href="https://accounts.spotify.com/authorize?client_id={{client_id}}&response_type=code&redirect_uri={{redirect_uri}}&scope=playlist-modify-public%20playlist-modify-private%20playlist-read-private"
+					>
+						<span class="icon">
+							<i class="fab fa-spotify"></i>
+						</span>
+						<span>Link Spotify Account</span>
+					</a>
+						{% endif %}
+						</div> {% for track in track_id_list %}
 						<div class="container">
 							<iframe
 								src="https://open.spotify.com/embed/track/{{track}}"

@@ -6,7 +6,7 @@ title %}Search{% endblock%}{% block content%}
 			<div class="column is-half is-offset-one-quarter">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>What is this app</p>
+						<p>Add Track or Artist Name to Recommedation Seed</p>
 					</div>
 					<div class="message-body">
 						<form action="subsearch" method="GET" id="subsearch">
@@ -27,11 +27,11 @@ title %}Search{% endblock%}{% block content%}
 			<div class="column is-half is-offset-one-quarter">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>Dark</p>
+						<p>Seed Parameters</p>
 					</div>
 					<div class="message-body">
 						<form method="POST" action="/seed">
-							<p id="subsearch_results"></p>
+							<p id="subsearch_results" class="mb-3"></p>
 							{{ form.hidden_tag() }} {{ helper.render_select_field(form.genre)}}{{
 							helper.render_select_field(form.key)}} {{
 							helper.render_select_field(form.mode)}}

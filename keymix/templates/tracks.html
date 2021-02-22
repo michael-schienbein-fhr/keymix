@@ -2,23 +2,43 @@
 block content%}
 <section>
 	<div class="container mt-5">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>What is this app</p>
+						<p>Playlist Information</p>
 					</div>
+					{% if id|length < 10 %}
 					<div class="message-body">
-						<p>{{name}}</p>
-						<p>{{description}}</p>
+						<p><b>Playlist Name:</b> {{name}}</p>
+						<p><b>Playlist Description:</b> {{description}}</p>
 					</div>
+					{% else %}
+					<div class="message-body">
+						<p><b>Spotify Playlist</b></p>
+					</div>
+					{% endif %}
 					{% if id|length > 10 %}
-					<p>save this spotify playlist to your keymix account?</p>
-					<form method="POST" action="/save">
-						<button>sumbit</button>
-					</form>
-					{% else %} {% if session['user_id'] %}
-					<a class="button is-primary" href="/save/spotify" method="GET">
+					<a class="button is-primary" href="/save" method="POST">
+						<span class="icon">
+							<i class="fas fa-music"></i>
+						</span>
+						<span>Save Playlist to Keymix</span>
+					</a>
+					{% else %} 
+					{% if not session['user_id'] %}
+					<a
+						class="button is-primary mb-5"
+						href="https://accounts.spotify.com/authorize?client_id={{client_id}}&response_type=code&redirect_uri={{redirect_uri}}&scope=playlist-modify-public%20playlist-modify-private%20playlist-read-private"
+					>
+						<span class="icon">
+							<i class="fab fa-spotify"></i>
+						</span>
+						<span>Link Spotify Account</span>
+					</a>
+
+					{% endif %}{% if session['user_id'] %}
+					<a class="button is-primary mb-5" href="/save/spotify" method="GET">
 						<span class="icon">
 							<i class="fab fa-spotify"></i>
 						</span>

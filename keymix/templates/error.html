@@ -1,15 +1,20 @@
-{% extends 'base.html' %}{% block title %}Error{% endblock%}{% block content%}
-<div class="container mt-0">
-	<div class="columns">
-		<div class="column is-4 is-offset-4 mt-0">
-			<div class="card mt-5">
-				<div class="card-image">
-					<figure class="image is-256x256 is-1by1">
-						<a href="/"><img src="https://files.catbox.moe/e0e8em.jpg"/></a>
-					</figure>
-				</div>
+{% extends 'base.html' %}{% block title %}Error{% endblock%} {% block content%}
+<section>
+	<div class="container mt-5">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
+				<article class="message is-dark">
+					<div class="message-header">
+						<p>{{error}}: {{text}}</p>
+					</div>
+					<div class="message-body">
+						<figure class="image is-256x256 is-1by1">
+							<a href="/"><img src="https://files.catbox.moe/e0e8em.jpg" /></a>
+						</figure>
+					</div>
+				</article>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 {% endblock %}

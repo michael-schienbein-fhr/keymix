@@ -61,5 +61,5 @@ class SavePlaylistForm(FlaskForm):
     """Form for edit/saving recommendations playlist to db"""
 
     name = StringField("Playlist Name", validators=[
-        MyInputRequired(message="Playlist Name cannot be blank")])
+        MyInputRequired(message="Playlist Name cannot be blank"), Length(min=1, max=50)])
     description = TextAreaField("Description")

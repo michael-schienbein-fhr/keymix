@@ -1,10 +1,10 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User, Feedback
+from models import db, Song, Detail, Playlist, PlaylistSong, User
 
 # Use test database and don't clutter tests with SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///feedback_test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///keymix_test'
 app.config['SQLALCHEMY_ECHO'] = False
 
 db.drop_all()
@@ -16,7 +16,10 @@ class UserModelTestCase(TestCase):
 
     def setUp(self):
         """Clean up any existing users."""
-        Feedback.query.delete()
+        Song.query.delete()
+        Detail.query.delete()
+        Playlist.query.delete()
+        PlaylistSong.query.delete()
         User.query.delete()
 
     def tearDown(self):

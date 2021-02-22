@@ -4,6 +4,7 @@ const $subsearch_button = $("#subsearch_button");
 
 $subsearch_button.on("click", async function (evt) {
 	evt.preventDefault();
+	$subsearch_results.empty()
 
 	const seed_id = await getId(
 		$("#subsearch_input").val(),
@@ -29,6 +30,7 @@ $subsearch_button.on("click", async function (evt) {
               <input type="checkbox" name="track" value="${result.id}">
               ${result.name}
             </label>`;
+			// $subsearch_results.clear()
 			$subsearch_results.append(track);
 		}
 	}

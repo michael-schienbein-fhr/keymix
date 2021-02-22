@@ -2,35 +2,22 @@
 content%}
 <section>
 	<div class="container mt-5">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>What is this APP</p>
-					</div>
-					<div class="message-body">
-						1.HOW TO USE THIS THIS
-						<br />
-						2.HOW TO USE THIS THIS
-					</div>
-				</article>
-			</div>
-		</div>
-
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
-				<article class="message is-dark">
-					<div class="message-header">
-						<p>Dark</p>
+						<p>Saved Playlists</p>
 					</div>
 					<div class="message-body">
 						{% for pl in playlists %}
+						<div class='my-2 mx-1'>
 						<a class="button is-primary" href="/playlists/{{pl.id}}/tracks">
 							<span class="icon">
-								<i class="fab fa-spotify"></i>
+								<i class="fas fa-music"></i>
 							</span>
 							<span>{{pl.name}}</span>
 						</a>
+					</div>
 						{% endfor %}
 					</div>
 				</article>

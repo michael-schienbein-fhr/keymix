@@ -1,26 +1,33 @@
 {% extends 'base.html' %} {% block title %}Home Page{% endblock%}{% block content%}
 <section>
 	<div class="container mt-5">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>What is this shit</p>
+						<p>What is this Keymix?</p>
 					</div>
 					<div class="message-body">
-						1.HOW TO USE THIS THIS
+						<p class="is-align-self-flex-start">Keymix lets you generate playlists using Spotify's recommedation engine using a variety of interesting playlist seed options. You can then save them to your Keymix account and from there you have the option of transferring them to your Spotify account.</p>
 						<br />
-						2.HOW TO USE THIS THIS
+						<div class="is-align-self-flex-start">
+						<p >
+						1. Start by registering an account.
+						<br>
+						2. By clicking the button below, you can start creating mixes or using the search tab above.
+						<br>
+						3. You can also choose to link your Spotify account first, for saving generated results straight to that account.</p></div>
+
 					</div>
 				</article>
 			</div>
 		</div>
 		{% if g.user %}
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-centered">
+			<div class="column is-half has-text-centered">
 				<article class="message is-dark">
 					<div class="message-header">
-						<p>Dark</p>
+						<p>Get Started</p>
 					</div>
 					<div class="message-body">
 						{% if not session['user_id'] %}

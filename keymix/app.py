@@ -207,6 +207,13 @@ def render_playlists():
 
 @app.route("/playlists/<playlist_id>/tracks")
 def render_playlist_tracks(playlist_id):
+    if g.user:
+        playlists = Playlist.query.filter_by(username=g.user.username).all()
+    if not g.user:
+        flash("Please log in to start using KEYmix", "danger")
+        return redirect("/")
+    if playlist_id not in playlists:
+        raise Unauthorized()
 
     if len(playlist_id) < 10:
         playlist_track_ids = []
@@ -416,8 +423,8 @@ def save_playlist_spotify():
 @ app.errorhandler(404)
 def page_not_found(e):
     """Show 404 NOT FOUND page."""
-    error = '404 Not Found'
-    text = "Sorry looks like we can't find the page you are looking for"
+    error = '404'
+    text = "Looks like we can't find the page you are looking for."
 
     return render_template('error.html', error=error, text=text), 404
 
@@ -425,6 +432,6 @@ def page_not_found(e):
 @ app.errorhandler(401)
 def page_unauthorized(e):
     """Show 401 Unauthorized page."""
-    error = '401 Unauthorized'
-    text = "You are Unauthorized to view that page, please login and try again"
+    error = '401'
+    text = "You are Unauthorized to view that page."
     return render_template('error.html', error=error, text=text), 401
