@@ -22,7 +22,6 @@ Jinja2==2.10
 jinjalint==0.5
 MarkupSafe==1.1.0
 parsy==1.1.0
-pkg-resources==0.0.0
 psycopg2-binary==2.8.6
 pycparser==2.20
 requests==2.25.1
