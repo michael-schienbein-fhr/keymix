@@ -1,1 +1,1 @@
-web: gunicorn app:keymix
+web: gunicorn keymix:app
