@@ -1,4 +1,3 @@
-from keymix import routes, forms, models, auth, util
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -20,8 +19,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 db = SQLAlchemy()
+
+
 def connect_db(app):
     db.app = app
     db.init_app(app)
+
+
 connect_db(app)
+from keymix import routes, forms, models, auth, util
 db.create_all()
