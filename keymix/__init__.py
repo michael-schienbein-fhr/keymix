@@ -1,3 +1,4 @@
+from keymix import routes, forms, models, auth, util
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -24,5 +25,3 @@ def connect_db(app):
     db.init_app(app)
 connect_db(app)
 db.create_all()
-
-from keymix import routes, forms, models, auth, util
