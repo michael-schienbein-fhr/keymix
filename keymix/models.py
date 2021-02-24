@@ -2,6 +2,7 @@ from keymix import db
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
+
 class Song(db.Model):
     """Song model"""
 
@@ -11,7 +12,6 @@ class Song(db.Model):
     title = db.Column(db.String, nullable=False)
     artist = db.Column(db.String, nullable=False)
     track_id = db.Column(db.String, nullable=False, unique=True)
-    details = db.relationship('Detail', backref='song')
 
 
 class Playlist(db.Model):
@@ -39,26 +39,26 @@ class PlaylistSong(db.Model):
         'playlists.id'), nullable=False)
 
 
-class Detail(db.Model):
-    """Audio details model"""
+# class Detail(db.Model):
+#     """Audio details model"""
 
-    __tablename__ = "details"
+#     __tablename__ = "details"
 
-    song_id = db.Column(db.Integer, db.ForeignKey(
-        'songs.id'), primary_key=True, nullable=False)
-    key = db.Column(db.Integer)
-    mode = db.Column(db.Integer)
-    tempo = db.Column(db.Float)
-    danceability = db.Column(db.Float)
-    energy = db.Column(db.Float)
-    loudness = db.Column(db.Float)
-    speechiness = db.Column(db.Float)
-    acousticness = db.Column(db.Float)
-    instrumentalness = db.Column(db.Float)
-    liveness = db.Column(db.Float)
-    valence = db.Column(db.Float)
-    duration_ms = db.Column(db.Integer)
-    time_signature = db.Column(db.Float)
+#     song_id = db.Column(db.Integer, db.ForeignKey(
+#         'songs.id'), primary_key=True, nullable=False)
+#     key = db.Column(db.Integer)
+#     mode = db.Column(db.Integer)
+#     tempo = db.Column(db.Float)
+#     danceability = db.Column(db.Float)
+#     energy = db.Column(db.Float)
+#     loudness = db.Column(db.Float)
+#     speechiness = db.Column(db.Float)
+#     acousticness = db.Column(db.Float)
+#     instrumentalness = db.Column(db.Float)
+#     liveness = db.Column(db.Float)
+#     valence = db.Column(db.Float)
+#     duration_ms = db.Column(db.Integer)
+#     time_signature = db.Column(db.Float)
 
 
 class User(db.Model):
