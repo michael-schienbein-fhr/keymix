@@ -7,12 +7,16 @@ from sqlalchemy.exc import IntegrityError, DataError
 from auth import encodedData, client_id, client_secret, redirect_uri_encoded, redirect_uri, secret_key
 import requests
 from util import get_user_id, get_genres, get_keys, get_modes, get_id, add_songs_to_playlist, create_playlist
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///keymix'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///keymix'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgres:///flask-heroku')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', secret_key)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = secret_key
+# app.config['SECRET_KEY'] = secret_key
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 # debug = DebugToolbarExtension(app)
 CURR_USER_KEY = "curr_user"
