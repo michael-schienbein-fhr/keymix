@@ -4,7 +4,7 @@ from flask import request, render_template, redirect, flash, session, url_for, g
 from flask_debugtoolbar import DebugToolbarExtension
 from keymix import app, db
 from keymix.forms import UserForm, LoginForm, SearchForm, SubSearchForm, SavePlaylistForm
-from keymix.models import Song, Detail, Playlist, PlaylistSong, User
+from keymix.models import Song, Playlist, PlaylistSong, User
 from keymix.auth import encodedData, client_id, client_secret, redirect_uri_encoded, redirect_uri
 from keymix.util import get_user_id, get_genres, get_keys, get_modes, get_id, add_songs_to_playlist, create_playlist
 from werkzeug.exceptions import Unauthorized
