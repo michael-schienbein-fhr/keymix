@@ -236,7 +236,7 @@ def render_playlist_tracks(playlist_id):
 
             for x in resp['items']:
                 playlist_track_ids.append(x['track']['id'])
-            raise
+            print(playlist_track_ids)
             return render_template("tracks.html", playlist_track_ids=playlist_track_ids, id=playlist_id)
 
         except KeyError:
