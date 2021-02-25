@@ -212,12 +212,12 @@ def render_playlist_tracks(playlist_id):
         if playlist_id not in pl_ids:
             raise Unauthorized()
         playlist_track_ids = []
-        playlist_track_uris = []
+        playlist_track_uris = ""
         pl = Playlist.query.get(playlist_id)
         for song in pl.songs:
             playlist_track_ids.append(song.track_id)
         for track_id in playlist_track_ids:
-            playlist_track_uris.append(f'spotify:track:{track_id}')
+            playlist_track_uris += f'spotify:track:{track_id}'+','
         session['track_uris'] = playlist_track_uris
         print(session['track_uris'])
         return render_template("tracks.html", playlist_track_ids=playlist_track_ids, name=pl.name, description=pl.description, id=playlist_id)
