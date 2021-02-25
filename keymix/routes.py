@@ -405,7 +405,7 @@ def save_playlist_spotify():
 
     user_id = get_user_id(session['token'])
     track_uris = session['track_uris']
-
+    print(track_uris)
     playlist_id = create_playlist(user_id, session['token'])
     add_songs_to_playlist(playlist_id, track_uris, session['token'])
     flash("Spotify playlist saved succuessfully!", 'success')
