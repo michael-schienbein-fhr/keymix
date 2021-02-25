@@ -219,7 +219,7 @@ def render_playlist_tracks(playlist_id):
         for track_id in playlist_track_ids:
             playlist_track_uris.append(f'spotify:track:{track_id}')
         session['track_uris'] = playlist_track_uris
-
+        raise
         return render_template("tracks.html", playlist_track_ids=playlist_track_ids, name=pl.name, description=pl.description, id=playlist_id)
     else:
         playlist_track_ids = []
