@@ -1,7 +1,7 @@
 import os
 import requests
 from flask import request, render_template, redirect, flash, session, url_for, g, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
+
 from keymix import app, db
 from keymix.forms import UserForm, LoginForm, SearchForm, SubSearchForm, SavePlaylistForm
 from keymix.models import Song, Playlist, PlaylistSong, User
@@ -139,7 +139,7 @@ def get_spotify_auth():
     headers = {
         "Authorization": "Basic {}".format(encodedData)
     }
-
+ 
     resp = requests.post('https://accounts.spotify.com/api/token',
                          headers=headers, data=data).json()
     token = resp['access_token']

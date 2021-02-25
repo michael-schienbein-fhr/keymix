@@ -1,9 +1,6 @@
 from unittest import TestCase
-
-from app import app
-from models import db, Song, Detail, Playlist, PlaylistSong, User
-from auth import encodedData, client_id, client_secret
-from flask import session
+from keymix import app, db
+from keymix.models import Song, Playlist, PlaylistSong, User
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///keymix_test'
@@ -84,10 +81,10 @@ class MainTestCase(TestCase):
     def test_logout(self):
         """Tests when user clicks the Logout link"""
         with app.test_client() as client:
-            client.get('/auth')
-            session['token'] = 'token'
-            session['refresh_token'] = 'refresh_token'
-            session['user_id'] = 'user_id'
+            with client.session_transaction() as session:
+                session['token'] = 'token'
+                session['refresh_token'] = 'refresh_token'
+                session['user_id'] = 'user_id'
             user_id = 'user_id'
             self.assertEqual(user_id, session.get('user_id'))
             self.assertEqual(session['user_id'], 'user_id')
@@ -116,14 +113,6 @@ class MainTestCase(TestCase):
             self.assertIn('<p>What is this Keymix?</p>', html)
             self.assertIn(
                 '<a class="navbar-item is-pulled-left has-text-success">Welcome! Account created successfully!</a>', html)
-
-    def test_get_spotify_auth(self):
-        """Tests for app level login on server side."""
-        with app.test_client() as client:
-            resp = client.get('/auth')
-            self.assertIn('token', session)
-            self.assertEqual(resp.status_code, 302)
-            session.clear()
 
     def test_seed_parameters(self):
         """Tests seeding based on several seeds including artist, track, genre, and more."""

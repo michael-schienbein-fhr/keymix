@@ -1,4 +1,6 @@
 import requests
+from datetime import datetime
+
 
 def get_user_id(token):
     """Returns the logged in user's Spotify ID"""
@@ -51,12 +53,14 @@ def get_modes():
 
 def create_playlist(user_id, token):
     """Creates an empty Spotify playlist for the logged in Spotify account"""
-
+    now = datetime.now()
+    playlist_str = now.strftime("Keymix: " + "%m/%d/%y %H:%M:%S")
     headers = {
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
     }
-    data = '{"name": "Keymix Playlist","public":false}'
+    data = '{"name": ' + '"' + playlist_str + '"' + '}'
+    # raise
     resp = requests.post(
         f'https://api.spotify.com/v1/users/{user_id}/playlists', headers=headers, data=data).json()
     return resp['id']

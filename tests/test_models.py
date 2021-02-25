@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from app import app
-from models import db, Song, Detail, Playlist, PlaylistSong, User
+from keymix import app
+from keymix.models import db, Song, Playlist, PlaylistSong, User
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///keymix_test'
@@ -18,7 +18,6 @@ class UserModelTestCase(TestCase):
         """Clean up any existing users."""
         PlaylistSong.query.delete()
         Song.query.delete()
-        Detail.query.delete()
         Playlist.query.delete()
         User.query.delete()
 
@@ -53,7 +52,6 @@ class SongModelTestCase(TestCase):
         """Clean up any existing users."""
         PlaylistSong.query.delete()
         Song.query.delete()
-        Detail.query.delete()
         Playlist.query.delete()
         User.query.delete()
 
@@ -81,7 +79,6 @@ class PlaylistModelTestCase(TestCase):
         """Clean up any existing users."""
         PlaylistSong.query.delete()
         Song.query.delete()
-        Detail.query.delete()
         Playlist.query.delete()
         User.query.delete()
 
@@ -115,7 +112,6 @@ class PlaylistSongModelTestCase(TestCase):
         Playlist.query.delete()
         Song.query.delete()
         User.query.delete()
-        Detail.query.delete()
 
     def tearDown(self):
         """Clean up any fouled transaction."""
