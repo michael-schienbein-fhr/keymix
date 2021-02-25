@@ -1,1 +1,1 @@
-web: gunicorn keymix:app
+web: gunicorn --debug keymix:app
