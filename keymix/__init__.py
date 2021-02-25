@@ -1,4 +1,4 @@
-from keymix import routes, forms, models, auth, util
+
 from keymix.auth import secret_key
 import os
 from flask import Flask
@@ -32,3 +32,5 @@ def connect_db(app):
 
 connect_db(app)
 db.create_all()
+
+from keymix import routes, forms, models, auth, util
