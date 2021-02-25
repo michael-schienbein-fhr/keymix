@@ -219,7 +219,6 @@ def render_playlist_tracks(playlist_id):
         for track_id in playlist_track_ids:
             playlist_track_uris += f'spotify:track:{track_id}'+','
         session['track_uris'] = playlist_track_uris
-        print(session['track_uris'])
         return render_template("tracks.html", playlist_track_ids=playlist_track_ids, name=pl.name, description=pl.description, id=playlist_id)
     else:
         playlist_track_ids = []
@@ -236,7 +235,7 @@ def render_playlist_tracks(playlist_id):
 
             for x in resp['items']:
                 playlist_track_ids.append(x['track']['id'])
-            print(playlist_track_ids)
+            
             return render_template("tracks.html", playlist_track_ids=playlist_track_ids, id=playlist_id)
 
         except KeyError:
@@ -405,7 +404,6 @@ def save_playlist_spotify():
 
     user_id = get_user_id(session['token'])
     track_uris = session['track_uris']
-    print(track_uris)
     playlist_id = create_playlist(user_id, session['token'])
     add_songs_to_playlist(playlist_id, track_uris, session['token'])
     flash("Spotify playlist saved succuessfully!", 'success')
