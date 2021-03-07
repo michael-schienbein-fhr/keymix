@@ -9,7 +9,7 @@ from keymix.auth import encodedData, client_id, client_secret, redirect_uri_enco
 from keymix.util import get_user_id, get_genres, get_keys, get_modes, get_id, add_songs_to_playlist, create_playlist
 from werkzeug.exceptions import Unauthorized
 from sqlalchemy.exc import IntegrityError, DataError
-
+from datetime import datetime
 
 ### Create flask global variables ###
 CURR_USER_KEY = "curr_user"
@@ -48,6 +48,7 @@ def do_logout():
     session.pop('token', None)
     session.pop('refresh_token', None)
     session.pop('user_id', None)
+    session.clear()
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -219,7 +220,10 @@ def render_playlist_tracks(playlist_id):
         for track_id in playlist_track_ids:
             playlist_track_uris += f'spotify:track:{track_id}'+','
         session['track_uris'] = playlist_track_uris
-        return render_template("tracks.html", playlist_track_ids=playlist_track_ids, name=pl.name, description=pl.description, id=playlist_id)
+        session['playlist_name'] = pl.name
+        session['playlist_id'] = pl.id
+        session['on_spotify'] = pl.on_spotify
+        return render_template("tracks.html", playlist_track_ids=playlist_track_ids, name=pl.name, description=pl.description, id=playlist_id, on_spotify=pl.on_spotify)
     else:
         playlist_track_ids = []
         try:
@@ -235,7 +239,7 @@ def render_playlist_tracks(playlist_id):
 
             for x in resp['items']:
                 playlist_track_ids.append(x['track']['id'])
-            
+
             return render_template("tracks.html", playlist_track_ids=playlist_track_ids, id=playlist_id)
 
         except KeyError:
@@ -254,6 +258,8 @@ def render_search_page():
         form.genre.choices = get_genres(session['token'])
         form.key.choices = get_keys()
         form.mode.choices = get_modes()
+        session.pop('playlist_name', None)
+        session.pop('on_spotify', None)
         return render_template("search.html", form=form, subform=subform)
     except KeyError:
         return redirect('/')
@@ -326,6 +332,7 @@ def show_recommendations():
 
         resp = requests.get('https://api.spotify.com/v1/recommendations',
                             params=payload, headers=headers).json()
+
         # create dict from recommendation json
         song_dict = [[{"title": x['name']}, {"artist": x['artists'][0]['name']}, {
             "track_id": x['id']}] for x in resp["tracks"]]
@@ -342,7 +349,6 @@ def show_recommendations():
         for track in resp['tracks']:
             track_id_list.append(track['id'])
         session['track_id_list'] = track_id_list
-
         return render_template("results.html", track_id_list=track_id_list)
     except KeyError:
         form = SearchForm()
@@ -401,13 +407,27 @@ def save_playlist_spotify():
     if not g.user:
         flash("Please login first", "danger")
         return redirect("/")
-
+    now = datetime.now()
     user_id = get_user_id(session['token'])
     track_uris = session['track_uris']
-    playlist_id = create_playlist(user_id, session['token'])
-    add_songs_to_playlist(playlist_id, track_uris, session['token'])
-    flash("Spotify playlist saved succuessfully!", 'success')
-    return redirect(f'/playlists/{playlist_id}/tracks')
+    if "playlist_name" not in session or session["playlist_name"] == None:
+        playlist_name = now.strftime("Keymix: " + "%m/%d/%y %H:%M:%S")
+    else:
+        playlist_name = session['playlist_name']
+
+    playlist_id = create_playlist(user_id, session['token'], playlist_name)
+    resp = add_songs_to_playlist(playlist_id, track_uris, session['token'])
+
+    if resp['snapshot_id']:
+        if 'on_spotify' in session and 'playlist_id' in session and session['on_spotify'] == False:
+            pl = Playlist.query.get(session['playlist_id'])
+            pl.on_spotify = True
+            db.session.commit()
+        flash("Spotify playlist saved succuessfully!", 'success')
+        return redirect(f'/')
+    else:
+        flash("Error saving Spotify playlist, try again!", 'danger')
+        return redirect(f'/')
 
 
 ## Error routes ##

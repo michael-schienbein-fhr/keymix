@@ -26,6 +26,7 @@ class Playlist(db.Model):
         "Song", secondary="playlist_songs", backref="playlist")
     username = db.Column(db.String(20), db.ForeignKey(
         'users.username'), nullable=False)
+    on_spotify = db.Column(db.Boolean(), nullable=False, default=False)
 
 
 class PlaylistSong(db.Model):
