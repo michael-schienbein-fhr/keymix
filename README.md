@@ -1,6 +1,8 @@
 # <b>KEYmix</b>
 
 ![Keymix Homepage](https://github.com/fact0/capstoneOne/blob/master/keymixhome.jpg?raw=true)
+## Live Demo:
+[https://keymix.herokuapp.com/](https://keymix.herokuapp.com/)
 
 ## Installation and Requirements
 
