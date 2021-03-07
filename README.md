@@ -1,8 +1,8 @@
 # <b>KEYmix</b>  
 ---
-## <b>API used: Spotify API</b>
+
 ---
-## Endpoints:
+## <b>API used: Spotify API</b>
 <b>Base url:</b>
 https://api.spotify.com/v1/
   
