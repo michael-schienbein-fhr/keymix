@@ -1,6 +1,6 @@
 
 
-
+from keymix.auth import secret_key
 import os
 from flask import Flask
 from flask_debugtoolbar import DebugToolbarExtension
@@ -29,7 +29,7 @@ db = SQLAlchemy()
 
 
 from keymix import routes, forms, models, auth, util
-from keymix.auth import secret_key
+
 
 def connect_db(app):
     db.app = app
