@@ -1,0 +1,6 @@
+@media screen and (max-width: 1024px) {
+  #flash-msg {
+    display: none;
+    pointer-events: none;
+  }
+}
